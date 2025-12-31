@@ -240,10 +240,10 @@ FLAGS_GPT_4o = GenericPromptFlags(
         long_description=False,
         individual_examples=False,
     ),
-    use_plan=False,
+    use_plan=True,
     use_criticise=False,
     use_thinking=True,
-    use_memory=False,
+    use_memory=True,
     use_concrete_example=True,
     use_abstract_example=True,
     use_hints=True,
@@ -251,6 +251,11 @@ FLAGS_GPT_4o = GenericPromptFlags(
     max_prompt_tokens=40_000,
     be_cautious=True,
     extra_instructions=None,
+)
+
+AGENT_GPT5 = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"],
+    flags=FLAGS_GPT_4o,
 )
 
 AGENT_4o = GenericAgentArgs(

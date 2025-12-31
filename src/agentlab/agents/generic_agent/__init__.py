@@ -43,7 +43,9 @@ from .agent_configs import (
     FLAGS_GPT_4o,
     GenericAgentArgs,
     AGENT_GPT5_MINI,
+    AGENT_GPT5,
 )
+from .generic_agent_with_training import GenericAgentWithTraining, GenericAgentWithTrainingArgs
 
 __all__ = [
     "AGENT_3_5",
@@ -80,4 +82,7 @@ __all__ = [
     "AGENT_AZURE_5_NANO_VISION",
     "AGENT_CLAUDE_SONNET_35_VISION",
     "AGENT_GPT5_MINI",
+    "AGENT_GPT5",
+    "GenericAgentWithTraining",
+    "GenericAgentWithTrainingArgs",
 ]

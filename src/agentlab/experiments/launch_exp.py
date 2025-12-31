@@ -86,15 +86,17 @@ def run_experiments(
         elif parallel_backend == "ray":
             from agentlab.experiments.graph_execution_ray import execute_task_graph, ray
 
-            ray.init(
-                num_cpus=n_jobs,
-                dashboard_host="0.0.0.0" if RAY_PUBLIC_DASHBOARD else "127.0.0.1",
-                dashboard_port=None if RAY_DASHBOARD_PORT is None else int(RAY_DASHBOARD_PORT),
-            )
+            if not ray.is_initialized():
+                ray.init(
+                    num_cpus=n_jobs,
+                    dashboard_host="0.0.0.0" if RAY_PUBLIC_DASHBOARD else "127.0.0.1",
+                    dashboard_port=None if RAY_DASHBOARD_PORT is None else int(RAY_DASHBOARD_PORT),
+                )
             try:
                 execute_task_graph(exp_args_list, avg_step_timeout=avg_step_timeout)
             finally:
-                ray.shutdown()
+                if ray.is_initialized():
+                    ray.shutdown()
         elif parallel_backend == "sequential":
             for exp_args in exp_args_list:
                 run_exp(exp_args, avg_step_timeout=avg_step_timeout)
